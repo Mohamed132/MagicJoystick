@@ -55,7 +55,7 @@
         this.size = Math.random() * 2 + 0.5; // Smaller size (0.5 to 2.5)
         this.speedX = (Math.random() - 0.5) * 1.5; // Slower movement
         this.speedY = (Math.random() - 0.5) * 1.5;
-        this.life = 100;
+        this.life = Math.random() * 30 + 20; // Shorter lifetime (between 20 and 50)
       }
 
       update() {
