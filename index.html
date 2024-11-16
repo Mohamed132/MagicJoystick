@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blue Particle Circle</title>
+  <title>Blue and White Particle Circle</title>
   <style>
     body {
       margin: 0;
@@ -43,7 +43,8 @@
     const ctx = canvas.getContext("2d");
 
     const particles = [];
-    const particleColor = "#4ea8ff"; // Monochromatic blue color
+    const particleColor1 = "#4ea8ff"; // Monochromatic blue color
+    const particleColor2 = "#ffffff"; // White color
     let isDragging = false;
 
     const emitterRadius = 50; // Larger emitter area radius
@@ -56,6 +57,9 @@
         this.speedX = (Math.random() - 0.5) * 1.5; // Slower movement
         this.speedY = (Math.random() - 0.5) * 1.5;
         this.life = Math.random() * 10 + 10; // Very short lifetime (between 10 and 20)
+
+        // Randomly choose between blue or white color
+        this.color = Math.random() > 0.5 ? particleColor1 : particleColor2;
       }
 
       update() {
@@ -67,9 +71,9 @@
       draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${hexToRgb(particleColor)}, ${this.life / 100})`;
+        ctx.fillStyle = `rgba(${hexToRgb(this.color)}, ${this.life / 100})`;
         ctx.shadowBlur = 8;
-        ctx.shadowColor = particleColor;
+        ctx.shadowColor = this.color;
         ctx.fill();
       }
     }
