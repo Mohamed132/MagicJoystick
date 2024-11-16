@@ -55,7 +55,7 @@
         this.size = Math.random() * 2 + 0.5; // Smaller size (0.5 to 2.5)
         this.speedX = (Math.random() - 0.5) * 1.5; // Slower movement
         this.speedY = (Math.random() - 0.5) * 1.5;
-        this.life = Math.random() * 30 + 20; // Shorter lifetime (between 20 and 50)
+        this.life = Math.random() * 10 + 10; // Very short lifetime (between 10 and 20)
       }
 
       update() {
@@ -83,8 +83,8 @@
     }
 
     function spawnParticles(x, y) {
-      // Spawn particles within a larger emitter area
-      for (let i = 0; i < 20; i++) { // Increased number of particles
+      // Spawn fewer particles with a very short lifetime
+      for (let i = 0; i < 10; i++) { // Decreased number of particles to 10
         const angle = Math.random() * 2 * Math.PI;
         const radius = Math.random() * emitterRadius; // Radius within the larger emitter circle
         const offsetX = Math.cos(angle) * radius;
