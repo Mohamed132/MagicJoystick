@@ -16,8 +16,8 @@
       touch-action: none; /* Disable touch gestures like scrolling */
     }
     .circle-container {
-      width: 400px; /* Increased size of the emitter */
-      height: 400px; /* Increased size of the emitter */
+      width: 300px;
+      height: 300px;
       border-radius: 50%; /* Make the container circular */
       overflow: hidden; /* Clip the canvas to fit inside the circle */
       border: 2px solid #4ea8ff;
@@ -36,7 +36,7 @@
 </head>
 <body>
   <div class="circle-container">
-    <canvas id="particleCanvas" width="400" height="400"></canvas>
+    <canvas id="particleCanvas" width="300" height="300"></canvas>
   </div>
   <script>
     const canvas = document.getElementById("particleCanvas");
@@ -45,6 +45,8 @@
     const particles = [];
     const particleColor = "#4ea8ff"; // Monochromatic blue color
     let isDragging = false;
+
+    const emitterRadius = 50; // Larger emitter area radius
 
     class Particle {
       constructor(x, y) {
@@ -81,9 +83,14 @@
     }
 
     function spawnParticles(x, y) {
-      // Increase the number of particles spawned at each interaction
-      for (let i = 0; i < 15; i++) { // Increase from 5 to 15 particles per event
-        particles.push(new Particle(x, y));
+      // Spawn particles within a larger emitter area
+      for (let i = 0; i < 20; i++) { // Increased number of particles
+        const angle = Math.random() * 2 * Math.PI;
+        const radius = Math.random() * emitterRadius; // Radius within the larger emitter circle
+        const offsetX = Math.cos(angle) * radius;
+        const offsetY = Math.sin(angle) * radius;
+
+        particles.push(new Particle(x + offsetX, y + offsetY));
       }
     }
 
