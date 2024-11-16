@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blue and White Particle Circle</title>
+  <title>Magical Blue and White Particle Circle</title>
   <style>
     body {
       margin: 0;
@@ -43,7 +43,7 @@
     const ctx = canvas.getContext("2d");
 
     const particles = [];
-    const particleColor1 = "#4ea8ff"; // Monochromatic blue color
+    const particleColor1 = "#4ea8ff"; // Blue color
     const particleColor2 = "#ffffff"; // White color
     let isDragging = false;
 
@@ -53,10 +53,10 @@
       constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.size = Math.random() * 2 + 0.5; // Smaller size (0.5 to 2.5)
-        this.speedX = (Math.random() - 0.5) * 1.5; // Slower movement
-        this.speedY = (Math.random() - 0.5) * 1.5;
-        this.life = Math.random() * 10 + 10; // Very short lifetime (between 10 and 20)
+        this.size = Math.random() * 2 + 1; // Slightly larger particles (1 to 3)
+        this.speedX = (Math.random() - 0.5) * 2; // Moderate speed
+        this.speedY = (Math.random() - 0.5) * 2;
+        this.life = Math.random() * 5 + 10; // Shorter lifetime (between 10 and 15)
 
         // Randomly choose between blue or white color
         this.color = Math.random() > 0.5 ? particleColor1 : particleColor2;
@@ -71,8 +71,8 @@
       draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${hexToRgb(this.color)}, ${this.life / 100})`;
-        ctx.shadowBlur = 8;
+        ctx.fillStyle = `rgba(${hexToRgb(this.color)}, ${this.life / 15})`; // Fade out effect
+        ctx.shadowBlur = 10;
         ctx.shadowColor = this.color;
         ctx.fill();
       }
@@ -87,10 +87,10 @@
     }
 
     function spawnParticles(x, y) {
-      // Spawn fewer particles with a very short lifetime
-      for (let i = 0; i < 10; i++) { // Decreased number of particles to 10
+      // Spawn a moderate number of particles with a short lifetime
+      for (let i = 0; i < 15; i++) { // 15 particles
         const angle = Math.random() * 2 * Math.PI;
-        const radius = Math.random() * emitterRadius; // Radius within the larger emitter circle
+        const radius = Math.random() * emitterRadius;
         const offsetX = Math.cos(angle) * radius;
         const offsetY = Math.sin(angle) * radius;
 
@@ -104,13 +104,16 @@
       ctx.beginPath();
       ctx.arc(canvas.width / 2, canvas.height / 2, canvas.width / 2, 0, Math.PI * 2);
       ctx.clip(); // Clip to a circular region
+
+      // Update and draw all particles
       for (let i = particles.length - 1; i >= 0; i--) {
         particles[i].update();
         particles[i].draw();
         if (particles[i].life <= 0) {
-          particles.splice(i, 1);
+          particles.splice(i, 1); // Remove expired particles
         }
       }
+
       ctx.restore();
       requestAnimationFrame(animate);
     }
