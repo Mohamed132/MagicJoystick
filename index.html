@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Magical Blue and White Particle Circle</title>
+  <title>Smaller Magical Particle Circle</title>
   <style>
     body {
       margin: 0;
@@ -16,12 +16,12 @@
       touch-action: none; /* Disable touch gestures like scrolling */
     }
     .circle-container {
-      width: 300px;
-      height: 300px;
+      width: 200px; /* Smaller width */
+      height: 200px; /* Smaller height */
       border-radius: 50%; /* Make the container circular */
       overflow: hidden; /* Clip the canvas to fit inside the circle */
       border: 2px solid #4ea8ff;
-      box-shadow: 0 0 20px #4ea8ff;
+      box-shadow: 0 0 15px #4ea8ff;
       position: relative;
     }
     canvas {
@@ -36,7 +36,7 @@
 </head>
 <body>
   <div class="circle-container">
-    <canvas id="particleCanvas" width="300" height="300"></canvas>
+    <canvas id="particleCanvas" width="200" height="200"></canvas>
   </div>
   <script>
     const canvas = document.getElementById("particleCanvas");
@@ -47,16 +47,16 @@
     const particleColor2 = "#ffffff"; // White color
     let isDragging = false;
 
-    const emitterRadius = 50; // Larger emitter area radius
+    const emitterRadius = 30; // Smaller emitter radius for the smaller canvas
 
     class Particle {
       constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.size = Math.random() * 2 + 1; // Slightly larger particles (1 to 3)
-        this.speedX = (Math.random() - 0.5) * 2; // Moderate speed
+        this.size = Math.random() * 2 + 1; // Particle size (1 to 3)
+        this.speedX = (Math.random() - 0.5) * 2;
         this.speedY = (Math.random() - 0.5) * 2;
-        this.life = Math.random() * 5 + 10; // Shorter lifetime (between 10 and 15)
+        this.life = Math.random() * 5 + 10; // Lifetime (10 to 15)
 
         // Randomly choose between blue or white color
         this.color = Math.random() > 0.5 ? particleColor1 : particleColor2;
@@ -87,8 +87,8 @@
     }
 
     function spawnParticles(x, y) {
-      // Spawn a moderate number of particles with a short lifetime
-      for (let i = 0; i < 15; i++) { // 15 particles
+      // Spawn particles with a short lifetime
+      for (let i = 0; i < 12; i++) { // Slightly fewer particles for smaller space
         const angle = Math.random() * 2 * Math.PI;
         const radius = Math.random() * emitterRadius;
         const offsetX = Math.cos(angle) * radius;
@@ -105,7 +105,6 @@
       ctx.arc(canvas.width / 2, canvas.height / 2, canvas.width / 2, 0, Math.PI * 2);
       ctx.clip(); // Clip to a circular region
 
-      // Update and draw all particles
       for (let i = particles.length - 1; i >= 0; i--) {
         particles[i].update();
         particles[i].draw();
